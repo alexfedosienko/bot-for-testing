@@ -1,0 +1,26 @@
+services:
+  app:
+    build:
+      dockerfile: dockerfile
+    restart: always
+    working_dir: /app
+    env_file:
+      - .env
+    networks:
+      - dokploy-network
+    labels:
+      - "traefik.enable=true"
+      # create web router
+      - "traefik.http.routers.vpn360core-web.rule=Host(`test1.vpn360.ru`)"
+      - "traefik.http.routers.vpn360core-web.entrypoints=web"
+      - "traefik.http.routers.vpn360core-web.middlewares=redirect-to-https@file"
+      # create web secure router
+      - "traefik.http.routers.vpn360core-websecure.rule=Host(`test1.vpn360.ru`)"
+      - "traefik.http.routers.vpn360core-websecure.entrypoints=websecure"
+      - "traefik.http.routers.vpn360core-websecure.tls.certResolver=letsencrypt"
+      # set port
+      - "traefik.http.services.vpn360core.loadbalancer.server.port=80"
+
+networks:
+  dokploy-network:
+    external: true

@@ -1,0 +1,17 @@
+{
+    "name": "aleksandrfedosienko/demo-bot",
+    "autoload": {
+        "psr-4": {
+            "DemoBot\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "alexfedosienko",
+            "email": "alexfedosienko@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
